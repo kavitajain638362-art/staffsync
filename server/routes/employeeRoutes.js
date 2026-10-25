@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { list, update, deactivate } from "../controllers/employeeController.js";
+import { register } from "../controllers/authController.js";
+import { roles } from "../middleware/authMiddleware.js";
+const router = Router();
+router.get("/", list);
+router.post("/", roles("hr"), register);
+router.patch("/:userId", update);
+router.delete("/:userId", roles("hr"), deactivate);
+export default router;
